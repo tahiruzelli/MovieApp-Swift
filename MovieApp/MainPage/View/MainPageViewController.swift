@@ -34,7 +34,7 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func onCellPressed(){
-        print("cell pressed")
+        performSegue(withIdentifier: "toMovieDetail", sender: nil)
     }
     @objc func onSearchBarPressed(){
         performSegue(withIdentifier: "toSearchPage", sender: nil)
