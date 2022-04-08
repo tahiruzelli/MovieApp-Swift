@@ -10,14 +10,13 @@ import ImageSlideshow
 
 class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSlideshowDelegate {
     
+    @IBOutlet weak var slideShow: ImageSlideshow!
+    @IBOutlet weak var MoviesTableView: UITableView!
+    @IBOutlet weak var searchBarTextField: UITextField!
     func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
           print("current page:", page)
       }
-    @IBOutlet weak var slideShow: ImageSlideshow!
-    
-    @IBOutlet weak var sliderPageControl: UIPageControl!
-    @IBOutlet weak var imageSliderCollectionView: UICollectionView!
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -37,8 +36,9 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     @objc func onCellPressed(){
         print("cell pressed")
     }
-    @IBOutlet weak var MoviesTableView: UITableView!
-    @IBOutlet weak var searchBarTextField: UITextField!
+    @objc func onSearchBarPressed(){
+        performSegue(withIdentifier: "toSearchPage", sender: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if let myImage = UIImage(named: "search-icon"){
@@ -46,6 +46,10 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         }
         searchBarTextField.clipsToBounds = true
         searchBarTextField.layer.cornerRadius = 10.0
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onSearchBarPressed))
+        searchBarTextField.isUserInteractionEnabled = true
+        searchBarTextField.addGestureRecognizer(gestureRecognizer)
+        
         MoviesTableView.dataSource = self
         MoviesTableView.delegate = self
 
