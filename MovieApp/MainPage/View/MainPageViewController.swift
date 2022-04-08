@@ -6,8 +6,18 @@
 //
 
 import UIKit
+import ImageSlideshow
 
-class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSlideshowDelegate {
+    
+    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
+          print("current page:", page)
+      }
+    @IBOutlet weak var slideShow: ImageSlideshow!
+    
+    @IBOutlet weak var sliderPageControl: UIPageControl!
+    @IBOutlet weak var imageSliderCollectionView: UICollectionView!
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -36,8 +46,36 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         }
         searchBarTextField.clipsToBounds = true
         searchBarTextField.layer.cornerRadius = 10.0
-        MoviesTableView.delegate = self
         MoviesTableView.dataSource = self
+        MoviesTableView.delegate = self
+
+
         
+        slideShow.slideshowInterval = 5.0
+        slideShow.pageIndicatorPosition = .init(horizontal: .center, vertical: .bottom)
+        slideShow.contentScaleMode = UIViewContentMode.scaleAspectFill
+        
+        let pageControl = UIPageControl()
+        pageControl.currentPageIndicatorTintColor = .white
+        pageControl.pageIndicatorTintColor = UIColor.lightGray
+        slideShow.pageIndicator = pageControl
+        slideShow.activityIndicator = DefaultActivityIndicator()
+        slideShow.delegate = self
+        slideShow.setImageInputs([
+        ImageSource(image: UIImage(named: "1")!),
+          ImageSource(image: UIImage(named: "2")!),
+          ImageSource(image: UIImage(named: "3")!),
+          ImageSource(image: UIImage(named: "4")!),
+          ImageSource(image: UIImage(named: "5")!),
+        ])
+
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        slideShow.addGestureRecognizer(recognizer)
+    }
+
+    @objc func didTap() {
+        let fullScreenController = slideShow.presentFullScreenController(from: self)
+        fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: UIActivityIndicatorView.Style.medium, color: nil)
     }
 }
+

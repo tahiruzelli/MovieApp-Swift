@@ -51,7 +51,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AJI-nW-CQz">
-                                <rect key="frame" x="0.0" y="106" width="414" height="790"/>
+                                <rect key="frame" x="0.0" y="320" width="414" height="576"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieCell" rowHeight="124" id="eat-j2-01h" customClass="MovieTableViewCell" customModule="MovieApp" customModuleProvider="target">
@@ -123,14 +123,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-6A-XEU" customClass="ImageSlideshow" customModule="ImageSlideshow">
+                                <rect key="frame" x="0.0" y="86" width="414" height="234"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="234" id="Brg-EJ-io2"/>
+                                    <constraint firstAttribute="width" constant="414" id="OHk-Xl-Mo4"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dOB-KS-UBy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qPG-Gg-sIi" firstAttribute="top" secondItem="dOB-KS-UBy" secondAttribute="top" id="128-NP-4as"/>
                             <constraint firstItem="dOB-KS-UBy" firstAttribute="trailing" secondItem="qPG-Gg-sIi" secondAttribute="trailing" constant="20" id="1dM-Gw-ypX"/>
-                            <constraint firstItem="AJI-nW-CQz" firstAttribute="top" secondItem="qPG-Gg-sIi" secondAttribute="bottom" constant="28" id="Mv2-wB-peA"/>
+                            <constraint firstItem="pdN-6A-XEU" firstAttribute="leading" secondItem="dOB-KS-UBy" secondAttribute="leading" id="9ar-R3-waZ"/>
+                            <constraint firstItem="pdN-6A-XEU" firstAttribute="trailing" secondItem="dOB-KS-UBy" secondAttribute="trailing" id="LKY-fW-yPy"/>
+                            <constraint firstItem="AJI-nW-CQz" firstAttribute="trailing" secondItem="dOB-KS-UBy" secondAttribute="trailing" id="Pku-ix-ulp"/>
                             <constraint firstAttribute="bottom" secondItem="AJI-nW-CQz" secondAttribute="bottom" id="Unm-1A-Akb"/>
+                            <constraint firstAttribute="bottom" secondItem="AJI-nW-CQz" secondAttribute="bottom" id="ba0-Zm-0jy"/>
+                            <constraint firstItem="pdN-6A-XEU" firstAttribute="top" secondItem="qPG-Gg-sIi" secondAttribute="bottom" constant="8" symbolic="YES" id="deZ-IR-FHB"/>
+                            <constraint firstItem="AJI-nW-CQz" firstAttribute="top" secondItem="pdN-6A-XEU" secondAttribute="bottom" id="eOz-C1-iSS"/>
+                            <constraint firstItem="AJI-nW-CQz" firstAttribute="leading" secondItem="dOB-KS-UBy" secondAttribute="leading" id="lmx-it-gK9"/>
                             <constraint firstItem="qPG-Gg-sIi" firstAttribute="leading" secondItem="dOB-KS-UBy" secondAttribute="leading" constant="20" id="o7j-rb-7Vy"/>
                             <constraint firstItem="AJI-nW-CQz" firstAttribute="trailing" secondItem="dOB-KS-UBy" secondAttribute="trailing" id="w41-cJ-amM"/>
                             <constraint firstItem="AJI-nW-CQz" firstAttribute="leading" secondItem="dOB-KS-UBy" secondAttribute="leading" id="xHF-jM-anf"/>
@@ -142,6 +155,7 @@
                     <connections>
                         <outlet property="MoviesTableView" destination="AJI-nW-CQz" id="A99-XQ-q2H"/>
                         <outlet property="searchBarTextField" destination="qPG-Gg-sIi" id="q6y-Tr-FQU"/>
+                        <outlet property="slideShow" destination="pdN-6A-XEU" id="pUC-R9-OXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Crc-xt-Cyh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
