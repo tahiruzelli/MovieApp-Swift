@@ -47,14 +47,24 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         cell.movieDesc.text = row.overview
         cell.movieDate.text = row.releaseDate
         cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onCellPressed))
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onCellPressed(_:)))
         cell.isUserInteractionEnabled = true
         cell.addGestureRecognizer(gestureRecognizer)
+        
         return cell
     }
     
-    @objc func onCellPressed(){
+    @IBAction func onCellPressed(_ sender: UITapGestureRecognizer){
+        
         performSegue(withIdentifier: "toMovieDetail", sender: nil)
+        
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMovieDetail" {
+            let destinationVC = segue.destination as! MovieDetailViewController
+            destinationVC.movieId = 55555
+        }
     }
     @objc func onSearchBarPressed(){
         performSegue(withIdentifier: "toSearchPage", sender: nil)

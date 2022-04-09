@@ -278,49 +278,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="kCg-wW-yd8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="266"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="kCg-wW-yd8">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="167"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imdb-logo" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-fB-MH8">
-                                <rect key="frame" x="9" y="274" width="68" height="35"/>
+                                <rect key="frame" x="9" y="175" width="68" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="2od-Qx-ePp"/>
                                     <constraint firstAttribute="width" constant="68" id="Ikc-eC-1dL"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-U5-sJI">
-                                <rect key="frame" x="155" y="286" width="18" height="16"/>
+                                <rect key="frame" x="155" y="187" width="18" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" name="colorGrey"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15.06.2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJo-xc-AOG">
-                                <rect key="frame" x="198" y="286" width="66" height="16"/>
+                                <rect key="frame" x="198" y="187" width="66" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moonrise Kingdom (2012)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gie-2J-Nr5">
-                                <rect key="frame" x="13" y="359" width="211" height="21"/>
+                                <rect key="frame" x="13" y="260" width="211" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aT3-KI-H3w">
-                                <rect key="frame" x="13" y="398" width="388" height="167.5"/>
+                                <rect key="frame" x="13" y="299" width="388" height="167.5"/>
                                 <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in nunc orci. Cras et finibus nunc, vitae ultrices nulla. Pellentesque nec augue placerat, consectetur lacus quis, auctor est. Mauris a lacus id augue tristique efficitur. Suspendisse pretium id metus in dapibus. Aenean tempus sem nunc, eu molestie eros faucibus sed. Fusce tempus rutrum diam id aliquam. Quisque a ante eget odio gravida varius. Quisque in consectetur leo. Sed ipsum lacus, mattis vel orci vel, porta rutrum diam. Curabitur iaculis et mauris non aliquam.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Benzer Filmler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L3F-Pe-G20">
-                                <rect key="frame" x="13" y="605.5" width="117" height="21"/>
+                                <rect key="frame" x="13" y="506.5" width="117" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EC9-aL-ce6">
-                                <rect key="frame" x="16" y="642.5" width="382" height="203.5"/>
+                                <rect key="frame" x="16" y="543.5" width="382" height="302.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hmR-0m-hDt">
                                     <size key="itemSize" width="148" height="176.5"/>
@@ -330,7 +330,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SimilarMoviesCell" id="zEg-i4-FeD" customClass="SimilarMoviesCell" customModule="MovieApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="13.5" width="148" height="176.5"/>
+                                        <rect key="frame" x="0.0" y="63" width="148" height="176.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="n2A-1e-RCW">
                                             <rect key="frame" x="0.0" y="0.0" width="148" height="176.5"/>
@@ -373,14 +373,14 @@
                                 </connections>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star-icon" translatesAutoresizingMaskIntoConstraints="NO" id="g0g-hC-bSH">
-                                <rect key="frame" x="90" y="275" width="30" height="30"/>
+                                <rect key="frame" x="90" y="176" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="H2i-JS-IqE"/>
                                     <constraint firstAttribute="width" constant="30" id="kww-qD-amv"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXh-fN-slv">
-                                <rect key="frame" x="131" y="284" width="22" height="21"/>
+                                <rect key="frame" x="131" y="185" width="22" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="7e0-6x-Ppy"/>
                                     <constraint firstAttribute="height" constant="21" id="a0b-cI-y0G"/>
@@ -424,6 +424,11 @@
                     <navigationItem key="navigationItem" id="Lw2-YG-V8C"/>
                     <connections>
                         <outlet property="collectionView" destination="EC9-aL-ce6" id="C9G-yg-XLu"/>
+                        <outlet property="movieDesc" destination="aT3-KI-H3w" id="dPl-es-ABP"/>
+                        <outlet property="movieImage" destination="kCg-wW-yd8" id="lVc-6K-bs0"/>
+                        <outlet property="movieName" destination="Gie-2J-Nr5" id="BYN-gO-Jzv"/>
+                        <outlet property="movieRate" destination="WXh-fN-slv" id="CuR-9S-hnH"/>
+                        <outlet property="movieReleaseDate" destination="lJo-xc-AOG" id="IHc-mo-BWa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2t9-QZ-J0t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -432,8 +437,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1" width="400" height="266"/>
         <image name="2" width="1280" height="720"/>
+        <image name="5" width="302" height="167"/>
         <image name="harmonyerplogo" width="945" height="945"/>
         <image name="imdb-logo" width="512" height="512"/>
         <image name="search-icon" width="1200" height="1200"/>

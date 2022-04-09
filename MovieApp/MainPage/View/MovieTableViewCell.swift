@@ -20,6 +20,11 @@ class MovieTableViewCell: UITableViewCell {
         movieDesc.lineBreakMode = NSLineBreakMode.byWordWrapping
         movieDesc.numberOfLines = 0
     }
+
+    
+    @objc func onCellPressed(){
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

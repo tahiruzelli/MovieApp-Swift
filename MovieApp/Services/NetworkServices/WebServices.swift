@@ -35,9 +35,9 @@ class Webservices {
                 completion(nil)
             } else if let data = data {
                 
-            let nowPlayingMovies = try? JSONDecoder().decode(UpComingModel.self, from: data)
-                if let nowPlayingMovies = nowPlayingMovies {
-                    completion(nowPlayingMovies.results)
+            let upComingModel = try? JSONDecoder().decode(UpComingModel.self, from: data)
+                if let upComingModel = upComingModel {
+                    completion(upComingModel.results)
                 }
 
             }
@@ -46,6 +46,47 @@ class Webservices {
 
     }
     
+    func fetchMovieDetail(url: URL, completion: @escaping (MovieDetailModel?) -> ()) {
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+            } else if let data = data {
+                
+            let movieDetail = try? JSONDecoder().decode(MovieDetailModel.self, from: data)
+                if let movieDetail = movieDetail {
+                    completion(movieDetail)
+                }else{
+                    print("error")
+                }
+
+            }
+
+        }.resume()
+
+    }
+    
+    func fetchSimilarMovies(url: URL, completion: @escaping ([SimilarMovies]?) -> ()) {
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+            } else if let data = data {
+                
+            let similarMovies = try? JSONDecoder().decode(SimilarMoviesModel.self, from: data)
+                if let similarMovies = similarMovies {
+                    completion(similarMovies.results)
+                }else{
+                    print("error")
+                }
+
+            }
+
+        }.resume()
+
+    }
 }
 //struct NetworkService {
 //    
