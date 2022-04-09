@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.5.0)
   - ImageSlideshow (1.9.2):
     - ImageSlideshow/Core (= 1.9.2)
   - ImageSlideshow/Core (1.9.2)
@@ -7,18 +8,21 @@ PODS:
   - NVActivityIndicatorView/Base (5.1.1)
 
 DEPENDENCIES:
+  - Alamofire
   - ImageSlideshow
   - NVActivityIndicatorView
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - ImageSlideshow
     - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
 
-PODFILE CHECKSUM: 8cd1349e1b6becae03936d0b2d70841dca99a5c1
+PODFILE CHECKSUM: eea76d6899b4aaa5c128b4b17e23bd4008ec41c9
 
 COCOAPODS: 1.11.3

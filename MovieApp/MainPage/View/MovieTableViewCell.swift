@@ -17,6 +17,8 @@ class MovieTableViewCell: UITableViewCell {
         movieImage.clipsToBounds = true
         movieImage.layer.cornerRadius = 10
         movieImage.contentMode = .scaleToFill
+        movieDesc.lineBreakMode = NSLineBreakMode.byWordWrapping
+        movieDesc.numberOfLines = 0
     }
     
     override func awakeFromNib() {

@@ -8,4 +8,5 @@ target 'MovieApp' do
   # Pods for MovieApp
   pod 'NVActivityIndicatorView'
   pod 'ImageSlideshow'
+  pod 'Alamofire'
 end

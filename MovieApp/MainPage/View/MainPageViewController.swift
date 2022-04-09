@@ -9,24 +9,44 @@ import UIKit
 import ImageSlideshow
 
 class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSlideshowDelegate {
-    
+    private var nowPlayingMovies: NowPlayingModel!
     @IBOutlet weak var slideShow: ImageSlideshow!
     @IBOutlet weak var MoviesTableView: UITableView!
     @IBOutlet weak var searchBarTextField: UITextField!
+    
+    var upComingList : [UpComing]?
+    
+    private func getData() {
+        let url = URL(string: baseUrl + getUpcomingMoviesUrl + apiKey)!
+        print(baseUrl + getUpcomingMoviesUrl + apiKey)
+         Webservices().fetchUpcomingMovies(url: url) { nowPlayingMovies in
+             
+             if let nowPlayingMovies = nowPlayingMovies {
+    
+                 DispatchQueue.main.async { [self] in
+                     self.upComingList = nowPlayingMovies
+                     MoviesTableView.reloadData()
+         
+                 }
+             }
+         }
+        
+    }
     func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
           print("current page:", page)
       }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return upComingList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
-        cell.movieName.text = "forest gump"
-        cell.movieDesc.text = "run forest run"
-        cell.movieDate.text = "1997"
-        cell.movieImage.downloaded(from: "https://www.chip.com.tr/images/content/2020/09/25/20200925140142692119.jpg")
+        let row : UpComing = upComingList![indexPath.row]
+        cell.movieName.text = row.title
+        cell.movieDesc.text = row.overview
+        cell.movieDate.text = row.releaseDate
+        cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onCellPressed))
         cell.isUserInteractionEnabled = true
         cell.addGestureRecognizer(gestureRecognizer)
@@ -41,6 +61,7 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        getData()
         if let myImage = UIImage(named: "search-icon"){
             searchBarTextField.withImage(direction: .Right, image: myImage)
         }
@@ -53,7 +74,14 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         MoviesTableView.dataSource = self
         MoviesTableView.delegate = self
 
-
+        slideShow.delegate = self
+        slideShow.setImageInputs([
+        ImageSource(image: UIImage(named: "1")!),
+          ImageSource(image: UIImage(named: "2")!),
+          ImageSource(image: UIImage(named: "3")!),
+          ImageSource(image: UIImage(named: "4")!),
+          ImageSource(image: UIImage(named: "5")!),
+        ])
         
         slideShow.slideshowInterval = 5.0
         slideShow.pageIndicatorPosition = .init(horizontal: .center, vertical: .bottom)
@@ -64,14 +92,6 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         slideShow.pageIndicator = pageControl
         slideShow.activityIndicator = DefaultActivityIndicator()
-        slideShow.delegate = self
-        slideShow.setImageInputs([
-        ImageSource(image: UIImage(named: "1")!),
-          ImageSource(image: UIImage(named: "2")!),
-          ImageSource(image: UIImage(named: "3")!),
-          ImageSource(image: UIImage(named: "4")!),
-          ImageSource(image: UIImage(named: "5")!),
-        ])
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
         slideShow.addGestureRecognizer(recognizer)
