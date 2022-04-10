@@ -10,47 +10,21 @@ import UIKit
 class SearchPageViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchResultTableView: UITableView!
-    
-    var searchResults : [SearchResult]?
-    func getSearchResults(){
-        let urlString : String = baseUrl + getSearchResultsUrl + apiKey + "&query=" + searchTextField.text!
-        let url = URL(string: urlString)!
-
-         Webservices().fetchSearchResults(url: url) { searchResults in
-
-             if let searchResults = searchResults {
-
-                 DispatchQueue.main.async { [self] in
-                     self.searchResults = searchResults
-                     searchResultTableView.reloadData()
-                 }
-             }
-         }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! SearchResultCell
-        let row = searchResults![indexPath.row]
-        let releaseDate : String?
-        if(row.releaseDate == nil || row.releaseDate == ""){
-            releaseDate = "(Unknown)"
-        }
-        else{
-            releaseDate = "(" + String(row.releaseDate?.split(separator: "-")[0] ?? "") + ")"
-        }
-        
-        cell.movieName.text = row.title! + " " + (releaseDate ?? "")
-        return cell
-    }
-    
-
     @IBOutlet weak var searhBarTextField: UITextField!
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    lazy var viewModel: SearchPageViewModel = {
+        return SearchPageViewModel()
+    }()
+    
+    
+    func initVM(){
+        viewModel.reloadTableViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.searchResultTableView.reloadData()
+            }
+        }
+    }
+    func initView(){
         if let myImage = UIImage(named: "search-icon"){
             searhBarTextField.withImage(direction: .Left, image: myImage)
         }
@@ -60,9 +34,29 @@ class SearchPageViewController: UIViewController, UITableViewDataSource,UITableV
         searchResultTableView.dataSource = self
         searchResultTableView.delegate = self
         searhBarTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.searchResults?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResultCell", for: indexPath) as! SearchResultCell
+        cell.movieName.text = viewModel.fillTableViewCell(index: indexPath.row)
+        return cell
+    }
+    
+
+ 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initView()
+        initVM()
     }
     @objc func textFieldDidChange(_ textField: UITextField) {
-        getSearchResults()
+        viewModel.textFieldString = searhBarTextField.text!
+        viewModel.getSearchResults()
+
     }
 }
