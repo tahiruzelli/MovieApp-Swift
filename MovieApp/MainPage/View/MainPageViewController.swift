@@ -15,6 +15,7 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var searchBarTextField: UITextField!
     
     var upComingList : [UpComing]?
+    var selectedTableViewId : Int?
     
     private func getData() {
         let url = URL(string: baseUrl + getUpcomingMoviesUrl + apiKey)!
@@ -47,28 +48,24 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         cell.movieDesc.text = row.overview
         cell.movieDate.text = row.releaseDate
         cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onCellPressed(_:)))
-        cell.isUserInteractionEnabled = true
-        cell.addGestureRecognizer(gestureRecognizer)
-        
         return cell
     }
-    
-    @IBAction func onCellPressed(_ sender: UITapGestureRecognizer){
-        
-        performSegue(withIdentifier: "toMovieDetail", sender: nil)
-        
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            selectedTableViewId = upComingList![indexPath.row].id
+            performSegue(withIdentifier: "toMovieDetail2", sender: nil)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toMovieDetail" {
+        if segue.identifier == "toMovieDetail2" {
             let destinationVC = segue.destination as! MovieDetailViewController
-            destinationVC.movieId = 55555
+            destinationVC.movieId = selectedTableViewId
         }
     }
+    
     @objc func onSearchBarPressed(){
         performSegue(withIdentifier: "toSearchPage", sender: nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()

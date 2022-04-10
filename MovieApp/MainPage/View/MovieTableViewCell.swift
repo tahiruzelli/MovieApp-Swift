@@ -19,6 +19,8 @@ class MovieTableViewCell: UITableViewCell {
         movieImage.contentMode = .scaleToFill
         movieDesc.lineBreakMode = NSLineBreakMode.byWordWrapping
         movieDesc.numberOfLines = 0
+        
+        
     }
 
     

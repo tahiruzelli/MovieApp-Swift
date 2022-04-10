@@ -127,7 +127,6 @@
                                             <outlet property="movieDesc" destination="73C-Li-vgL" id="UkQ-Xv-5m3"/>
                                             <outlet property="movieImage" destination="EeB-tV-GXl" id="QiI-Ym-cML"/>
                                             <outlet property="movieName" destination="oh0-wp-jmI" id="tfp-GR-pYv"/>
-                                            <segue destination="LEW-pT-VeU" kind="presentation" identifier="toMovieDetail" modalPresentationStyle="fullScreen" id="4d9-lW-3nC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -169,6 +168,7 @@
                         <outlet property="MoviesTableView" destination="AJI-nW-CQz" id="A99-XQ-q2H"/>
                         <outlet property="searchBarTextField" destination="qPG-Gg-sIi" id="q6y-Tr-FQU"/>
                         <outlet property="slideShow" destination="pdN-6A-XEU" id="pUC-R9-OXM"/>
+                        <segue destination="LEW-pT-VeU" kind="presentation" identifier="toMovieDetail2" modalPresentationStyle="fullScreen" id="2u8-7l-j7x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Crc-xt-Cyh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -19,23 +19,25 @@ class MovieDetailViewController: UIViewController{
     var movieDetail : MovieDetailModel?
     var similarMovies : [SimilarMovies]?
     private func getMovieDetail() {
-        let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + apiKey)!
-         Webservices().fetchMovieDetail(url: url) { movieDetail in
-             
-             if let movieDetail = movieDetail {
-    
-                 DispatchQueue.main.async { [self] in
-                     self.movieDetail = movieDetail
-                     movieName.text = self.movieDetail?.title
-                     movieDesc.text = self.movieDetail?.overview
-                     movieImage.downloaded(from: imageBaseUrl + self.movieDetail!.backdropPath!)
-                     movieRate.text = String(self.movieDetail?.voteAverage ?? 0)
-                     movieReleaseDate.text = self.movieDetail?.releaseDate
-                     isLoading = false
-                     
+        if(movieId != nil){
+            let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + apiKey)!
+             Webservices().fetchMovieDetail(url: url) { movieDetail in
+                 
+                 if let movieDetail = movieDetail {
+        
+                     DispatchQueue.main.async { [self] in
+                         self.movieDetail = movieDetail
+                         movieName.text = self.movieDetail?.title
+                         movieDesc.text = self.movieDetail?.overview
+                         movieImage.downloaded(from: imageBaseUrl + self.movieDetail!.backdropPath!)
+                         movieRate.text = String(self.movieDetail?.voteAverage ?? 0)
+                         movieReleaseDate.text = self.movieDetail?.releaseDate
+                         isLoading = false
+                         
+                     }
                  }
              }
-         }
+        }
         
     }
     
