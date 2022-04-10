@@ -16,3 +16,5 @@ let imageBaseUrl : String = "https://image.tmdb.org/t/p/w500/"
 let getNowPlayingMoviesUrl : String = "/movie/now_playing"
 let getUpcomingMoviesUrl : String = "/movie/upcoming"
 let getMovieDetailUrl : String  = "/movie/"
+let getSearchResultsUrl : String = "/search/movie"
+

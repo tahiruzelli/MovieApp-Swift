@@ -263,6 +263,7 @@
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="searchResultTableView" destination="wwW-my-Y1v" id="Sns-EM-EaO"/>
+                        <outlet property="searchTextField" destination="4tN-pw-UQS" id="Djs-wH-483"/>
                         <outlet property="searhBarTextField" destination="4tN-pw-UQS" id="Nve-qc-wLm"/>
                     </connections>
                 </viewController>
@@ -278,7 +279,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="kCg-wW-yd8">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5" translatesAutoresizingMaskIntoConstraints="NO" id="kCg-wW-yd8">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="167"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imdb-logo" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-fB-MH8">
@@ -291,7 +292,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YnY-U5-sJI">
                                 <rect key="frame" x="155" y="187" width="18" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" name="colorGrey"/>
+                                <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15.06.2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJo-xc-AOG">
@@ -393,6 +394,7 @@
                         <viewLayoutGuide key="safeArea" id="tm6-cA-b8Z"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kCg-wW-yd8" firstAttribute="top" secondItem="Xto-fi-hAb" secondAttribute="top" constant="-5" id="0up-X4-NkL"/>
                             <constraint firstItem="kCg-wW-yd8" firstAttribute="trailing" secondItem="tm6-cA-b8Z" secondAttribute="trailing" id="2xI-ZJ-tp0"/>
                             <constraint firstItem="RCb-fB-MH8" firstAttribute="leading" secondItem="tm6-cA-b8Z" secondAttribute="leading" constant="9" id="30E-HL-xq5"/>
                             <constraint firstItem="g0g-hC-bSH" firstAttribute="leading" secondItem="RCb-fB-MH8" secondAttribute="trailing" constant="13" id="7YB-gu-L8q"/>
@@ -451,6 +453,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -43,7 +43,6 @@ class MovieDetailViewController: UIViewController{
     
     private func getSimilarMovies() {
         let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + "/similar" + apiKey)!
-        print(baseUrl + getMovieDetailUrl + String(movieId ?? 0) + "/similar" + apiKey)
          Webservices().fetchSimilarMovies(url: url) { similarMovies in
              
              if let similarMovies = similarMovies {
@@ -54,12 +53,12 @@ class MovieDetailViewController: UIViewController{
                  }
              }
          }
-        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        movieImage.contentMode = .scaleAspectFill
         getMovieDetail()
         getSimilarMovies()
     }

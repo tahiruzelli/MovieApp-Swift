@@ -17,7 +17,7 @@ struct NowPlayingModel: Codable {
     let backdropPath: String
     let genreIDS: [Int]
     let id: Int
-    let originalLanguage: OriginalLanguage
+    let originalLanguage: String?
     let originalTitle, overview: String
     let popularity: Double
     let posterPath, releaseDate, title: String
@@ -39,11 +39,4 @@ struct NowPlayingModel: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case es = "es"
-    case fr = "fr"
-    case ja = "ja"
 }
