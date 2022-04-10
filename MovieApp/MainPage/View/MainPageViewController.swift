@@ -7,12 +7,16 @@
 
 import UIKit
 import ImageSlideshow
+import NVActivityIndicatorView
 
-class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSlideshowDelegate {
-    
-    @IBOutlet weak var slideShow: ImageSlideshow!
+class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var activityIndicator : NVActivityIndicatorView!
+    @IBOutlet weak var imageSliderCollectionView: UICollectionView!
     @IBOutlet weak var MoviesTableView: UITableView!
     @IBOutlet weak var searchBarTextField: UITextField!
+    
+    var currentIndex : Int = 0
+    var timer : Timer?
     
     lazy var viewModel: MainPageViewModel = {
         return MainPageViewModel()
@@ -22,12 +26,27 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         viewModel.reloadTableViewClosure = { [weak self] () in
             DispatchQueue.main.async {
                 self?.MoviesTableView.reloadData()
+                self?.activityIndicator.stopAnimating()
+            }
+        }
+        viewModel.reloadCollectionViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.imageSliderCollectionView.reloadData()
             }
         }
         viewModel.getUpComingMovies()
         viewModel.getNowPlayingMovies()
     }
     func initView(){
+        let xAxis = self.view.center.x
+        let yAxis = self.view.center.y
+        let frame = CGRect(x: (xAxis - 22.5), y: (yAxis - 45), width: 45, height: 45)
+        activityIndicator = NVActivityIndicatorView(frame: frame)
+        activityIndicator.type = .ballTrianglePath
+        activityIndicator.color = UIColor.red
+
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
         if let myImage = UIImage(named: "search-icon"){
             searchBarTextField.withImage(direction: .Right, image: myImage)
         }
@@ -40,33 +59,21 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         MoviesTableView.dataSource = self
         MoviesTableView.delegate = self
 
-        slideShow.delegate = self
-        slideShow.setImageInputs([
-            ImageSource(image: UIImage(named: "1")!),
-            ImageSource(image: UIImage(named: "2")!),
-            ImageSource(image: UIImage(named: "3")!),
-            ImageSource(image: UIImage(named: "4")!),
-            ImageSource(image: UIImage(named: "5")!),
-        ])
-        
-        slideShow.slideshowInterval = 5.0
-        slideShow.pageIndicatorPosition = .init(horizontal: .center, vertical: .bottom)
-        slideShow.contentScaleMode = UIViewContentMode.scaleAspectFill
-        
-        let pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = .white
-        pageControl.pageIndicatorTintColor = UIColor.lightGray
-        slideShow.pageIndicator = pageControl
-        slideShow.activityIndicator = DefaultActivityIndicator()
-
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
-        slideShow.addGestureRecognizer(recognizer)
     }
     
+    private func startTime(){
+            self.timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(autoSliderCell), userInfo: nil, repeats: true)
+    }
+    
+    @objc func autoSliderCell(){
+        if currentIndex < (viewModel.nowPlayingMovies?.count ?? 0) - 1 {
+            self.currentIndex += 1
+        }else{
+            currentIndex = 0
+        }
+        self.imageSliderCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+    }
 
-    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
-          print("current page:", page)
-      }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.upComingList?.count ?? 0
@@ -101,12 +108,38 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         initView()
         initVM()
+        startTime()
         
     }
 
-    @objc func didTap() {
-        let fullScreenController = slideShow.presentFullScreenController(from: self)
-        fullScreenController.slideshow.activityIndicator = DefaultActivityIndicator(style: UIActivityIndicatorView.Style.medium, color: nil)
+}
+
+extension MainPageViewController: UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.nowPlayingMovies?.count ?? 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NowPlayingMovieCell.identifier, for: indexPath) as! NowPlayingMovieCell
+        
+        cell.set(title: viewModel.getNowPlayingMovieTitle(index: indexPath.row), overview: viewModel.nowPlayingMovies![indexPath.row].overview ?? "", image: viewModel.nowPlayingMovies![indexPath.row].posterPath!)
+ return cell
+    }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: collectionView.bounds.width, height: collectionView.bounds.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return .zero
     }
 }
+
 

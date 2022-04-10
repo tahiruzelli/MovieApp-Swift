@@ -48,6 +48,7 @@ class MovieDetailViewController: UIViewController{
         super.viewDidLoad()
         initView()
         initVM()
+        
 
     }
 }
