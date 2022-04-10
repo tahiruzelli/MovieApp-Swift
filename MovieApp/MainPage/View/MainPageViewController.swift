@@ -42,11 +42,11 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
 
         slideShow.delegate = self
         slideShow.setImageInputs([
-        ImageSource(image: UIImage(named: "1")!),
-          ImageSource(image: UIImage(named: "2")!),
-          ImageSource(image: UIImage(named: "3")!),
-          ImageSource(image: UIImage(named: "4")!),
-          ImageSource(image: UIImage(named: "5")!),
+            ImageSource(image: UIImage(named: "1")!),
+            ImageSource(image: UIImage(named: "2")!),
+            ImageSource(image: UIImage(named: "3")!),
+            ImageSource(image: UIImage(named: "4")!),
+            ImageSource(image: UIImage(named: "5")!),
         ])
         
         slideShow.slideshowInterval = 5.0
