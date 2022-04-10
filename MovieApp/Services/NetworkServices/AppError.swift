@@ -18,9 +18,9 @@ enum AppError: LocalizedError {
         case .errorDecoding:
             return "Response could not be decoded"
         case .unknownError:
-            return "Bruhhh!!! I have no idea what go on"
+            return "Unknown Error"
         case .invalidUrl:
-            return "HEYYY!!! Give me a valid URL"
+            return "Give me a valid URL"
         case .serverError(let error):
             return error
         }

@@ -20,9 +20,7 @@ class DetailPageViewModel {
         if(movieId != nil){
             let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + apiKey)!
              Webservices().fetchMovieDetail(url: url) { movieDetail in
-                 
                  if let movieDetail = movieDetail {
-        
                      DispatchQueue.main.async { [self] in
                          self.movieDetail = movieDetail
                          reloadMovieDetail!()        
@@ -36,9 +34,7 @@ class DetailPageViewModel {
     func getSimilarMovies() {
         let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + "/similar" + apiKey)!
          Webservices().fetchSimilarMovies(url: url) { similarMovies in
-             
              if let similarMovies = similarMovies {
-    
                  DispatchQueue.main.async { [self] in
                      self.similarMovies = similarMovies
                      reloadTableViewClosure!()

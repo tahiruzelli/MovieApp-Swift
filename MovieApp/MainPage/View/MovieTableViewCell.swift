@@ -8,30 +8,17 @@ import Foundation
 import UIKit
 
 class MovieTableViewCell: UITableViewCell {
-    @IBOutlet weak var movieDate: UILabel!
     
+    @IBOutlet weak var movieDate: UILabel!
     @IBOutlet weak var movieDesc: UILabel!
     @IBOutlet weak var movieName: UILabel!
     @IBOutlet weak var movieImage: UIImageView!
+    
     override func layoutSubviews() {
         movieImage.clipsToBounds = true
         movieImage.layer.cornerRadius = 10
         movieImage.contentMode = .scaleToFill
         movieDesc.lineBreakMode = NSLineBreakMode.byWordWrapping
         movieDesc.numberOfLines = 0
-        
-        
     }
-
-    
-    @objc func onCellPressed(){
-        
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-
-    }
-    
 }

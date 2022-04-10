@@ -8,7 +8,6 @@
 import UIKit
 
 class SearchPageViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
-    @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var searhBarTextField: UITextField!
     

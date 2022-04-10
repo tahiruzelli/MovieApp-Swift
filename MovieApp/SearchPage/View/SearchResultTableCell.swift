@@ -9,12 +9,5 @@ import Foundation
 import UIKit
 
 class SearchResultCell: UITableViewCell {
-    @IBOutlet weak var movieName: UILabel!
-    override func layoutSubviews() {
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+    @IBOutlet weak var movieName: UILabel!    
 }

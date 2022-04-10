@@ -252,7 +252,6 @@
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="searchResultTableView" destination="wwW-my-Y1v" id="Sns-EM-EaO"/>
-                        <outlet property="searchTextField" destination="4tN-pw-UQS" id="Djs-wH-483"/>
                         <outlet property="searhBarTextField" destination="4tN-pw-UQS" id="Nve-qc-wLm"/>
                     </connections>
                 </viewController>

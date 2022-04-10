@@ -10,9 +10,4 @@ class SimilarMoviesCell: UICollectionViewCell {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var coverImage: UIImageView!
     static let identifier = "SimilarMoviesCell"
-    override func awakeFromNib() {
-        movieTitle.text = "asdf"
-        coverImage.image = UIImage(named: "1")
-    }
-
 }

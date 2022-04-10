@@ -14,15 +14,11 @@ class MainPageViewModel {
     var reloadTableViewClosure: (()->())?
     var reloadCollectionViewClosure: (()->())?
     
-    var isUpComingMoviesLoading = true
-    var isNowPlayingMoviesLoading = true
     
     func getUpComingMovies() {
         let url = URL(string: baseUrl + getUpcomingMoviesUrl + apiKey)!
          Webservices().fetchUpcomingMovies(url: url) { upComingMovies in
-             
              if let upComingMovies = upComingMovies {
-    
                  DispatchQueue.main.async { [self] in
                      self.upComingList = upComingMovies
                      reloadTableViewClosure!()
@@ -35,9 +31,7 @@ class MainPageViewModel {
     func getNowPlayingMovies() {
         let url = URL(string: baseUrl + getNowPlayingMoviesUrl + apiKey)!
          Webservices().fetchNowPlayingMovies(url: url) { nowPlayingMovies in
-             
              if let nowPlayingMovies = nowPlayingMovies {
-    
                  DispatchQueue.main.async { [self] in
                      self.nowPlayingMovies = nowPlayingMovies
                      reloadCollectionViewClosure!()
@@ -48,14 +42,14 @@ class MainPageViewModel {
     }
     
     func getNowPlayingMovieTitle(index: Int) -> String {
-            let row : NowPlaying = nowPlayingMovies![index]
+            let nowPlayingMovie : NowPlaying = nowPlayingMovies![index]
             let releaseDate : String?
-            if(row.releaseDate == nil || row.releaseDate == ""){
+            if(nowPlayingMovie.releaseDate == nil || nowPlayingMovie.releaseDate == ""){
                 releaseDate = "(Unknown)"
             }
             else{
-                releaseDate = "(" + String(row.releaseDate?.split(separator: "-")[0] ?? "") + ")"
+                releaseDate = "(" + String(nowPlayingMovie.releaseDate?.split(separator: "-")[0] ?? "") + ")"
             }
-            return row.title! + " " + (releaseDate ?? "")
+            return nowPlayingMovie.title! + " " + (releaseDate ?? "")
     }
 }

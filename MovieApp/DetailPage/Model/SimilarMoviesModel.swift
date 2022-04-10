@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-// MARK: - Welcome
 struct SimilarMoviesModel: Codable {
     let page: Int
     let results: [SimilarMovies]

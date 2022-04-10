@@ -10,12 +10,13 @@ import ImageSlideshow
 import NVActivityIndicatorView
 
 class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     var activityIndicator : NVActivityIndicatorView!
     @IBOutlet weak var imageSliderCollectionView: UICollectionView!
     @IBOutlet weak var MoviesTableView: UITableView!
     @IBOutlet weak var searchBarTextField: UITextField!
     
-    var currentIndex : Int = 0
+    var currentTimerIndex : Int = 0
     var timer : Timer?
     
     lazy var viewModel: MainPageViewModel = {
@@ -66,12 +67,12 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func autoSliderCell(){
-        if currentIndex < (viewModel.nowPlayingMovies?.count ?? 0) - 1 {
-            self.currentIndex += 1
+        if currentTimerIndex < (viewModel.nowPlayingMovies?.count ?? 0) - 1 {
+            self.currentTimerIndex += 1
         }else{
-            currentIndex = 0
+            currentTimerIndex = 0
         }
-        self.imageSliderCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+        self.imageSliderCollectionView.scrollToItem(at: IndexPath(item: currentTimerIndex, section: 0), at: .centeredHorizontally, animated: true)
     }
 
 
@@ -81,11 +82,11 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
-        let row : UpComing = viewModel.upComingList![indexPath.row]
-        cell.movieName.text = row.title
-        cell.movieDesc.text = row.overview
-        cell.movieDate.text = row.releaseDate
-        cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
+        let upComingMovie : UpComing = viewModel.upComingList![indexPath.row]
+        cell.movieName.text = upComingMovie.title
+        cell.movieDesc.text = upComingMovie.overview
+        cell.movieDate.text = upComingMovie.releaseDate
+        cell.movieImage.downloaded(from: imageBaseUrl + upComingMovie.posterPath)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
