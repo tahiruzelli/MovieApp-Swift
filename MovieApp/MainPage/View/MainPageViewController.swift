@@ -58,7 +58,7 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMovieDetail2" {
             let destinationVC = segue.destination as! MovieDetailViewController
-            destinationVC.movieId = selectedTableViewId
+            destinationVC.viewModel.movieId = selectedTableViewId
         }
     }
     

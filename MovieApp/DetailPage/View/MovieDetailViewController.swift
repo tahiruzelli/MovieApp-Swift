@@ -14,65 +14,57 @@ class MovieDetailViewController: UIViewController{
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieReleaseDate: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-    var isLoading = true
-    var movieId : Int?
-    var movieDetail : MovieDetailModel?
-    var similarMovies : [SimilarMovies]?
-    private func getMovieDetail() {
-        if(movieId != nil){
-            let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + apiKey)!
-             Webservices().fetchMovieDetail(url: url) { movieDetail in
-                 
-                 if let movieDetail = movieDetail {
-        
-                     DispatchQueue.main.async { [self] in
-                         self.movieDetail = movieDetail
-                         movieName.text = self.movieDetail?.title
-                         movieDesc.text = self.movieDetail?.overview
-                         movieImage.downloaded(from: imageBaseUrl + self.movieDetail!.backdropPath!)
-                         movieRate.text = String(self.movieDetail?.voteAverage ?? 0)
-                         movieReleaseDate.text = self.movieDetail?.releaseDate
-                         isLoading = false
-                         
-                     }
-                 }
-             }
+    
+    lazy var viewModel: DetailPageViewModel = {
+        return DetailPageViewModel()
+    }()
+
+    func initVM(){
+        viewModel.reloadTableViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
         }
+        viewModel.reloadMovieDetail = { [weak self] () in
+            DispatchQueue.main.async {
+                self!.movieName.text = self!.viewModel.movieDetail?.title
+                self!.movieName.text = self!.viewModel.movieDetail?.title
+                self!.movieDesc.text = self!.viewModel.movieDetail?.overview
+                self!.movieImage.downloaded(from: imageBaseUrl + self!.viewModel.movieDetail!.backdropPath!)
+                self!.movieRate.text = String(self!.viewModel.movieDetail?.voteAverage ?? 0)
+                self!.movieReleaseDate.text = self!.viewModel.movieDetail?.releaseDate
+            }
+        }
+
         
+        viewModel.getMovieDetail()
+        viewModel.getSimilarMovies()
+    }
+    func initView(){
+        movieImage.contentMode = .scaleAspectFill
     }
     
-    private func getSimilarMovies() {
-        let url = URL(string: baseUrl + getMovieDetailUrl + String(movieId ?? 0) + "/similar" + apiKey)!
-         Webservices().fetchSimilarMovies(url: url) { similarMovies in
-             
-             if let similarMovies = similarMovies {
-    
-                 DispatchQueue.main.async { [self] in
-                     self.similarMovies = similarMovies
-                     collectionView.reloadData()
-                 }
-             }
-         }
-    }
+
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        movieImage.contentMode = .scaleAspectFill
-        getMovieDetail()
-        getSimilarMovies()
+        initView()
+        initVM()
+
     }
 }
 
 extension MovieDetailViewController: UICollectionViewDelegate,UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.similarMovies?.count ?? 0
+        return self.viewModel.similarMovies?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarMoviesCell.identifier, for: indexPath) as! SimilarMoviesCell
-        let row = self.similarMovies?[indexPath.row]
+        let row = self.viewModel.similarMovies?[indexPath.row]
         cell.coverImage.downloaded(from: imageBaseUrl + row!.posterPath)
         cell.movieTitle.text = row?.title
         return cell
