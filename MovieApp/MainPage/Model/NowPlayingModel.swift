@@ -1,29 +1,42 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
 //
-//  NowPlayingModel.swift
-//  MovieApp
-//
-//  Created by Tahir Uzelli on 8.04.2022.
-//
+//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
 import Foundation
 
+// MARK: - Welcome
+struct NowPlayingModel: Codable {
+    let dates: Dates
+    let page: Int
+    let results: [NowPlaying]
+    let totalPages, totalResults: Int
+
+    enum CodingKeys: String, CodingKey {
+        case dates, page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}
+
+// MARK: - Dates
 struct Dates: Codable {
     let maximum, minimum: String
 }
 
 // MARK: - Result
-struct NowPlayingModel: Codable {
-    let adult: Bool
-    let backdropPath: String
-    let genreIDS: [Int]
-    let id: Int
+struct NowPlaying: Codable {
+    let adult: Bool?
+    let backdropPath: String?
+    let genreIDS: [Int]?
+    let id: Int?
     let originalLanguage: String?
-    let originalTitle, overview: String
-    let popularity: Double
-    let posterPath, releaseDate, title: String
-    let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
+    let originalTitle, overview: String?
+    let popularity: Double?
+    let posterPath, releaseDate, title: String?
+    let video: Bool?
+    let voteAverage: Double?
+    let voteCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case adult

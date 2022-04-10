@@ -44,10 +44,6 @@ class MovieDetailViewController: UIViewController{
         movieImage.contentMode = .scaleAspectFill
     }
     
-
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()

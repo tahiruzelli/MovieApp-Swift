@@ -9,66 +9,25 @@ import UIKit
 import ImageSlideshow
 
 class MainPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImageSlideshowDelegate {
-    private var nowPlayingMovies: NowPlayingModel!
+    
     @IBOutlet weak var slideShow: ImageSlideshow!
     @IBOutlet weak var MoviesTableView: UITableView!
     @IBOutlet weak var searchBarTextField: UITextField!
     
-    var upComingList : [UpComing]?
-    var selectedTableViewId : Int?
+    lazy var viewModel: MainPageViewModel = {
+        return MainPageViewModel()
+    }()
     
-    private func getData() {
-        let url = URL(string: baseUrl + getUpcomingMoviesUrl + apiKey)!
-        print(baseUrl + getUpcomingMoviesUrl + apiKey)
-         Webservices().fetchUpcomingMovies(url: url) { nowPlayingMovies in
-             
-             if let nowPlayingMovies = nowPlayingMovies {
-    
-                 DispatchQueue.main.async { [self] in
-                     self.upComingList = nowPlayingMovies
-                     MoviesTableView.reloadData()
-         
-                 }
-             }
-         }
-        
-    }
-    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
-          print("current page:", page)
-      }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return upComingList?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
-        let row : UpComing = upComingList![indexPath.row]
-        cell.movieName.text = row.title
-        cell.movieDesc.text = row.overview
-        cell.movieDate.text = row.releaseDate
-        cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            selectedTableViewId = upComingList![indexPath.row].id
-            performSegue(withIdentifier: "toMovieDetail2", sender: nil)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toMovieDetail2" {
-            let destinationVC = segue.destination as! MovieDetailViewController
-            destinationVC.viewModel.movieId = selectedTableViewId
+    func initVM(){
+        viewModel.reloadTableViewClosure = { [weak self] () in
+            DispatchQueue.main.async {
+                self?.MoviesTableView.reloadData()
+            }
         }
+        viewModel.getUpComingMovies()
+        viewModel.getNowPlayingMovies()
     }
-    
-    @objc func onSearchBarPressed(){
-        performSegue(withIdentifier: "toSearchPage", sender: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getData()
+    func initView(){
         if let myImage = UIImage(named: "search-icon"){
             searchBarTextField.withImage(direction: .Right, image: myImage)
         }
@@ -102,6 +61,47 @@ class MainPageViewController: UIViewController, UITableViewDelegate, UITableView
 
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTap))
         slideShow.addGestureRecognizer(recognizer)
+    }
+    
+
+    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
+          print("current page:", page)
+      }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.upComingList?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
+        let row : UpComing = viewModel.upComingList![indexPath.row]
+        cell.movieName.text = row.title
+        cell.movieDesc.text = row.overview
+        cell.movieDate.text = row.releaseDate
+        cell.movieImage.downloaded(from: imageBaseUrl + row.posterPath)
+        return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectedTableViewId = viewModel.upComingList![indexPath.row].id
+            performSegue(withIdentifier: "toMovieDetail2", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toMovieDetail2" {
+            let destinationVC = segue.destination as! MovieDetailViewController
+            destinationVC.viewModel.movieId = viewModel.selectedTableViewId
+        }
+    }
+    
+    @objc func onSearchBarPressed(){
+        performSegue(withIdentifier: "toSearchPage", sender: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initView()
+        initVM()
+        
     }
 
     @objc func didTap() {

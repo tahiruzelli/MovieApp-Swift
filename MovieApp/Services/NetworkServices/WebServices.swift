@@ -6,27 +6,8 @@
 //
 
 import Foundation
-class Webservices {
-    
-    func fetchNowPlayingMovies(url: URL, completion: @escaping ([NowPlayingModel]?) -> ()) {
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(nil)
-            } else if let data = data {
-                let nowPlayingMovies = try? JSONDecoder().decode(ApiResponse<[NowPlayingModel]>.self, from: data)
-                
-                if let nowPlayingMovies = nowPlayingMovies {
-                    completion(nowPlayingMovies.results)
-                }
-                
-            }
-            
-        }.resume()
-        
-    }
 
+class Webservices {
     func fetchUpcomingMovies(url: URL, completion: @escaping ([UpComing]?) -> ()) {
 
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -38,6 +19,25 @@ class Webservices {
             let upComingModel = try? JSONDecoder().decode(UpComingModel.self, from: data)
                 if let upComingModel = upComingModel {
                     completion(upComingModel.results)
+                }
+
+            }
+
+        }.resume()
+
+    }
+    
+    func fetchNowPlayingMovies(url: URL, completion: @escaping ([NowPlaying]?) -> ()) {
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+            } else if let data = data {
+                
+            let nowPlaying = try? JSONDecoder().decode(NowPlayingModel.self, from: data)
+                if let nowPlaying = nowPlaying {
+                    completion(nowPlaying.results)
                 }
 
             }
